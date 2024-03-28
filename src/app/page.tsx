@@ -1,9 +1,8 @@
 import Head from "next/head";
 import { Header } from "./_components/Header";
+import Content from "./_components/Content";
 
 const Home = () => {
-  // const session = await getServerAuthSession();
-
   return (
     <>
       <Head>
@@ -13,6 +12,7 @@ const Home = () => {
       </Head>
       <main>
         <Header />
+        <Content />
       </main>
     </>
   );
