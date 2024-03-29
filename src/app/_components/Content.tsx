@@ -45,21 +45,44 @@ const Content = () => {
     onSuccess: () => void refetchNotes(),
   });
 
+  const deleteTopic = api.topic.removeTopic.useMutation({
+    onSuccess: () => {
+      void refetchTopics(), void refetchNotes();
+    },
+  });
+
   return (
     <div className="mx-5 mt-5 grid grid-cols-4 gap-2">
       <div className="px-2">
         <ul className="menu w-56 rounded-box bg-base-100 p-2">
           {topics?.map((topic) => (
-            <li key={topic.id}>
-              <a
-                href="#"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  setSelectedTopic(topic);
-                }}
-              >
-                {topic.title}
-              </a>
+            <li key={topic.id} className="pb-3 sm:pb-4">
+              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                <div
+                  className="min-w-0 flex-1"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    setSelectedTopic(topic);
+                  }}
+                >
+                  <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
+                    {topic.title}
+                  </p>
+                  <p className="truncate text-sm text-gray-500 dark:text-gray-400">
+                    {topic.createdAt.toDateString()}
+                  </p>
+                </div>
+                <span>
+                  <button
+                    onClick={() =>
+                      void deleteTopic.mutate({ topicId: topic.id })
+                    }
+                    className="btn btn-primary btn-sm"
+                  >
+                    Remove
+                  </button>
+                </span>
+              </div>
             </li>
           ))}
         </ul>

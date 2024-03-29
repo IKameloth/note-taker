@@ -42,4 +42,13 @@ export const topicRouter = createTRPCRouter({
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }
     }),
+  removeTopic: protectedProcedure
+    .input(z.object({ topicId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      return ctx.db.topic.delete({
+        where: {
+          id: input.topicId,
+        },
+      });
+    }),
 });
