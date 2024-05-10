@@ -1,13 +1,12 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 
 export function Header() {
   const { data: session } = useSession();
 
   return (
-    <div className="navbar bg-primary text-primary-content">
+    <div className="bg-lavender-200 border-lavender-400 navbar mt-5 rounded-full border text-primary-content">
       <div className="flex-1 pl-5 text-3xl font-bold">
         {session?.user.name ? `Notes for ${session.user.name}` : "Notes"}
       </div>
